@@ -1,8 +1,8 @@
 using AutoMapper;
+using Microsoft.Extensions.Options;
 using WebAPI_UnitTests.Configurations;
 using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Models.Dtos;
-using Microsoft.Extensions.Options;
 
 namespace WebAPI_UnitTests.Mapping;
 

@@ -1,12 +1,7 @@
-using System.Net;
-using WebAPI_UnitTests.Models.Response;
-using WebAPI_UnitTests.Services.Interfaces;
-using Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using WebAPI_UnitTests.Models.Response.ItemResponses;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Models.Requests.ItemRequests;
-using WebAPI_UnitTests.Models.Response.ItemResponses;
+using WebAPI_UnitTests.Services.Interfaces;
 
 namespace WebAPI_UnitTests.Controllers;
 

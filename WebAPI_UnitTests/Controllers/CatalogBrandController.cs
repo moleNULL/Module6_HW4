@@ -1,10 +1,10 @@
 using System.Net;
 using Infrastructure;
-using WebAPI_UnitTests.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Models.Requests.BrandRequests;
 using WebAPI_UnitTests.Models.Response.BrandResponses;
+using WebAPI_UnitTests.Services.Interfaces;
 
 namespace WebAPI_UnitTests.Controllers;
 
@@ -43,7 +43,7 @@ public class CatalogBrandController : ControllerBase
     {
         var result = await _catalogBrandService.RemoveAsync(request.Id);
 
-        if (result == Data.EntityModifyState.NotFound)
+        if (result == EntityModifyState.NotFound)
         {
             return BadRequest(new RemoveBrandResponse<string>() { RemoveState = Enum.GetName(result) ! });
         }

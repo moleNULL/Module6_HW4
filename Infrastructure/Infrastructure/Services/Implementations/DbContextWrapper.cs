@@ -1,8 +1,6 @@
-using WebAPI_UnitTests.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+using Infrastructure.Services.Interfaces;
 
-namespace WebAPI_UnitTests.Services.Implementations;
+namespace Infrastructure.Services.Implementations;
 
 public class DbContextWrapper<T> : IDbContextWrapper<T>
     where T : DbContext

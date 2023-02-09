@@ -1,8 +1,8 @@
-﻿using WebAPI_UnitTests.Data;
+﻿using WebAPI_UnitTests.Data.Entities;
+using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Repositories.Interfaces;
-using WebAPI_UnitTests.Services.Interfaces;
-using WebAPI_UnitTests.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Services.Implementations;
+using Infrastructure.Services.Interfaces;
 
 namespace WebAPI_UnitTests.Repositories.Implementations
 {

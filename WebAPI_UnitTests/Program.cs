@@ -1,10 +1,11 @@
+using Infrastructure.Services.Implementations;
 using WebAPI_UnitTests.Configurations;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Repositories.Implementations;
 using WebAPI_UnitTests.Repositories.Interfaces;
 using WebAPI_UnitTests.Services.Implementations;
 using WebAPI_UnitTests.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Services.Interfaces;
 
 public class Program
 {

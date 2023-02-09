@@ -1,7 +1,6 @@
-using WebAPI_UnitTests.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Services.Interfaces;
 
-namespace WebAPI_UnitTests.Services;
+namespace Infrastructure.Services.Implementations;
 
 public abstract class BaseDataService<T>
     where T : DbContext
@@ -56,6 +55,6 @@ public abstract class BaseDataService<T>
             _logger.LogError(ex, $"transaction is rollbacked");
         }
 
-        return default(TResult) !;
+        return default!;
     }
 }

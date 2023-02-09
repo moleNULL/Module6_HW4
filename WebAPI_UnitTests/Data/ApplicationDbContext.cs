@@ -1,7 +1,7 @@
 #pragma warning disable CS8618
-using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
+using WebAPI_UnitTests.Data.Entities;
 
 namespace WebAPI_UnitTests.Data;
 
