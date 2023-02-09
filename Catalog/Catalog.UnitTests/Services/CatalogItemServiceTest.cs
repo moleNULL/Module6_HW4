@@ -17,6 +17,7 @@ public class CatalogItemServiceTest
 
     private readonly CatalogItemEntity _testItem = new CatalogItemEntity()
     {
+        Id = 5,
         Name = "Name",
         Description = "Description",
         Price = 1000,
@@ -45,7 +46,7 @@ public class CatalogItemServiceTest
         var testResult = 1;
 
         _catalogItemRepository.Setup(s => s.AddAsync(
-            It.Is<string>(i => i == _testItem.Name),
+            It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<decimal>(),
             It.IsAny<int>(),
@@ -80,5 +81,85 @@ public class CatalogItemServiceTest
 
         // assert
         result.Should().Be(testResult);
+    }
+
+    [Fact]
+    public async Task RemoveAsync_Success()
+    {
+        // arrange
+        EntityModifyState expectedResult = EntityModifyState.Deleted;
+
+        _catalogItemRepository.Setup(s => s.RemoveAsync(
+            It.IsAny<int>())).ReturnsAsync(expectedResult);
+
+        // act
+        var actualResult = await _catalogService.RemoveAsync(_testItem.Id);
+
+        // assert
+        actualResult.Should().Be(expectedResult);
+    }
+
+    [Fact]
+    public async Task RemoveAsync_Failed()
+    {
+        // arrange
+        int testedId = -4;
+        EntityModifyState expectedResult = EntityModifyState.NotFound;
+
+        _catalogItemRepository.Setup(s => s.RemoveAsync(
+            It.IsAny<int>())).ReturnsAsync(expectedResult);
+
+        // act
+        var actualResult = await _catalogService.RemoveAsync(testedId);
+
+        // assert
+        actualResult.Should().Be(expectedResult);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_Success()
+    {
+        // arrange
+        EntityModifyState expectedResult = EntityModifyState.Updated;
+
+        _catalogItemRepository.Setup(s => s.UpdateAsync(
+            It.IsAny<int>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<decimal>(),
+            It.IsAny<int>(),
+            It.IsAny<int>(),
+            It.IsAny<int>(),
+            It.IsAny<string>())).ReturnsAsync(expectedResult);
+
+        // act
+        var actualResult = await _catalogService.UpdateAsync(_testItem.Id, _testItem.Name, _testItem.Description, _testItem.Price, _testItem.AvailableStock, _testItem.CatalogBrandId, _testItem.CatalogTypeId, _testItem.PictureFileName);
+
+        // assert
+        actualResult.Should().Be(expectedResult);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_Failed()
+    {
+        // arrange
+        int testedId = -4;
+        EntityModifyState expectedResult = EntityModifyState.NotFound;
+
+        _catalogItemRepository.Setup(s => s.UpdateAsync(
+            It.IsAny<int>(),
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<decimal>(),
+            It.IsAny<int>(),
+            It.IsAny<int>(),
+            It.IsAny<int>(),
+            It.IsAny<string>())).ReturnsAsync(expectedResult);
+
+        // act
+        var actualResult = await _catalogService.UpdateAsync(testedId, _testItem.Name, _testItem.Description, _testItem.Price, _testItem.AvailableStock, _testItem.CatalogBrandId, _testItem.CatalogTypeId, _testItem.PictureFileName);
+
+        // assert
+        actualResult.Should().Be(expectedResult);
     }
 }

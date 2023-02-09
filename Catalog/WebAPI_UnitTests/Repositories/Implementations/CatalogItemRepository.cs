@@ -119,6 +119,11 @@ public class CatalogItemRepository : ICatalogItemRepository
 
     public async Task<EntityModifyState> RemoveAsync(int id)
     {
+        if (id < 1)
+        {
+            return EntityModifyState.NotFound;
+        }
+
         bool exists = await _dbContext.CatalogItems.AnyAsync(ci => ci.Id == id);
 
         if (!exists)
@@ -134,6 +139,11 @@ public class CatalogItemRepository : ICatalogItemRepository
 
     public async Task<EntityModifyState> UpdateAsync(int id, string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string pictureFileName)
     {
+        if (id < 1)
+        {
+            return EntityModifyState.NotFound;
+        }
+
         bool exists = await _dbContext.CatalogItems.AnyAsync(ci => ci.Id == id);
 
         if (!exists)

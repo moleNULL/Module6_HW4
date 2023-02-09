@@ -26,7 +26,8 @@ public class CatalogServiceTest
         _logger = new Mock<ILogger<CatalogService>>();
 
         var dbContextTransaction = new Mock<IDbContextTransaction>();
-        _dbContextWrapper.Setup(s => s.BeginTransactionAsync(CancellationToken.None)).ReturnsAsync(dbContextTransaction.Object);
+        _dbContextWrapper.Setup(s => s.BeginTransactionAsync(CancellationToken.None))
+            .ReturnsAsync(dbContextTransaction.Object);
 
         _catalogService = new CatalogService(_dbContextWrapper.Object, _logger.Object, _catalogItemRepository.Object, _mapper.Object);
     }
