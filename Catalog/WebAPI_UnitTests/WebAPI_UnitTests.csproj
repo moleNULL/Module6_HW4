@@ -5,13 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<CodeAnalysisRuleSet>../settings.ruleset</CodeAnalysisRuleSet>
+	<CodeAnalysisRuleSet>../../settings.ruleset</CodeAnalysisRuleSet>
 	<NoWarn>SA0001;SA1633;SA1200</NoWarn>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Program.cs~RF770c03.TMP" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
@@ -20,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
