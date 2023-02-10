@@ -1,5 +1,4 @@
 ﻿using WebAPI_UnitTests.Data.Entities;
-using Microsoft.EntityFrameworkCore;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Repositories.Interfaces;
 using Infrastructure.Services.Interfaces;
@@ -26,6 +25,11 @@ namespace WebAPI_UnitTests.Repositories.Implementations
 
         public async Task<EntityModifyState> RemoveAsync(int id)
         {
+            if (id < 1)
+            {
+                return EntityModifyState.NotFound;
+            }
+
             bool exists = await _dbContext.CatalogTypes.AnyAsync(ct => ct.Id == id);
 
             if (!exists)
@@ -41,6 +45,11 @@ namespace WebAPI_UnitTests.Repositories.Implementations
 
         public async Task<EntityModifyState> UpdateAsync(int id, string type)
         {
+            if (id < 1)
+            {
+                return EntityModifyState.NotFound;
+            }
+
             bool exists = await _dbContext.CatalogTypes.AnyAsync(ct => ct.Id == id);
 
             if (!exists)

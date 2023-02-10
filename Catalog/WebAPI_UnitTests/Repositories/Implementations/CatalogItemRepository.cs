@@ -33,6 +33,11 @@ public class CatalogItemRepository : ICatalogItemRepository
 
     public async Task<CatalogItemEntity?> GetByIdAsync(int id)
     {
+        if (id < 1)
+        {
+            return null;
+        }
+
         CatalogItemEntity? item = null;
 
         try

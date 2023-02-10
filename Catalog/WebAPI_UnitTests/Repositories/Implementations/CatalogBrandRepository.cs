@@ -29,6 +29,11 @@ namespace WebAPI_UnitTests.Repositories.Implementations
 
         public async Task<EntityModifyState> RemoveAsync(int id)
         {
+            if (id < 1)
+            {
+                return EntityModifyState.NotFound;
+            }
+
             bool exists = await _dbContext.CatalogBrands.AnyAsync(cb => cb.Id == id);
 
             if (!exists)
@@ -44,6 +49,11 @@ namespace WebAPI_UnitTests.Repositories.Implementations
 
         public async Task<EntityModifyState> UpdateAsync(int id, string brand)
         {
+            if (id < 1)
+            {
+                return EntityModifyState.NotFound;
+            }
+
             bool exists = await _dbContext.CatalogBrands.AnyAsync(cb => cb.Id == id);
 
             if (!exists)
