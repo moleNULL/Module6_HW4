@@ -1,6 +1,3 @@
-using System.Net;
-using Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Models.Dtos;
 using WebAPI_UnitTests.Models.Requests.GetItemByRequests;
@@ -27,7 +24,7 @@ public class CatalogBffController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.BadRequest)]
-    public async Task<IActionResult> ItemsAsync(PaginatedItemsRequest request)
+    public async Task<IActionResult> GetCatalogItemsAsync(PaginatedItemsRequest request)
     {
         var result = await _catalogService.GetCatalogItemsAsync(request.PageSize, request.PageIndex);
 

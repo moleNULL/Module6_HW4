@@ -1,4 +1,3 @@
-using System.Threading;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Models.Dtos;
@@ -66,8 +65,8 @@ public class CatalogServiceTest
             It.Is<int>(i => i == testPageIndex),
             It.Is<int>(i => i == testPageSize))).ReturnsAsync(pagingPaginatedItemsSuccess);
 
-        /*_mapper.Setup(s => s.Map<CatalogItemDto>(
-            It.Is<CatalogItem>(i => i.Equals(catalogItemSuccess)))).Returns(catalogItemDtoSuccess);*/
+        _mapper.Setup(s => s.Map<CatalogItemDto>(
+            It.Is<CatalogItemEntity>(i => i.Equals(catalogItemSuccess)))).Returns(catalogItemDtoSuccess);
 
         // act
         var result = await _catalogService.GetCatalogItemsAsync(testPageSize, testPageIndex);
@@ -96,5 +95,232 @@ public class CatalogServiceTest
 
         // assert
         result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_Success()
+    {
+        // arrange
+        int testedId = 5;
+        var entities = new CatalogItemEntity
+        {
+            Id = 5,
+            Name = "Item"
+        };
+        var expectedResultDto = new CatalogItemDto
+        {
+            Id = 5,
+            Name = "Item"
+        };
+
+        _catalogItemRepository.Setup(s => s.GetByIdAsync(
+            It.Is<int>(i => i == testedId))).ReturnsAsync(entities);
+
+        _mapper.Setup(s => s.Map(
+            It.Is<CatalogItemEntity>(i => i.Equals(entities)),
+            typeof(CatalogItemEntity),
+            typeof(CatalogItemDto))).Returns(expectedResultDto);
+
+        // act
+        var actualResult = await _catalogService.GetItemByIdAsync(testedId);
+
+        // arrange
+        actualResult.Should().NotBeNull();
+        actualResult.Should().BeEquivalentTo(expectedResultDto);
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_Failed()
+    {
+        // arrange
+        int testedId = -4;
+
+        _catalogItemRepository.Setup(s => s.GetByIdAsync(
+            It.Is<int>(i => i == testedId))).ReturnsAsync((CatalogItemEntity)null!);
+
+        // act
+        var actualResult = await _catalogService.GetItemByIdAsync(testedId);
+
+        // arrange
+        actualResult.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetItemsByBrandAsync_Success()
+    {
+        // arrange
+        string testedBrand = "SQL Server";
+        var entities = new List<CatalogItemEntity>
+        {
+            new CatalogItemEntity() { Name = "T-Shirt" }
+        };
+        var expectedItemsDto = new List<CatalogItemDto>
+        {
+            new CatalogItemDto() { Name = "T-Shirt" }
+        };
+
+        _catalogItemRepository.Setup(s => s.GetByBrandAsync(
+            It.Is<string>(i => i == testedBrand)))
+            .ReturnsAsync(entities);
+
+        _mapper.Setup(s => s.Map(
+            It.Is<List<CatalogItemEntity>>(i => i.Equals(entities)),
+            typeof(List<CatalogItemEntity>),
+            typeof(List<CatalogItemDto>))).Returns(expectedItemsDto);
+
+        // act
+        var actualResult = await _catalogService.GetItemsByBrandAsync(testedBrand);
+
+        // arrange
+        actualResult.Should().NotBeNull();
+        actualResult.Should().BeEquivalentTo(expectedItemsDto);
+    }
+
+    [Fact]
+    public async Task GetItemsByBrandAsync_Failed()
+    {
+        // arrange
+        string testedBrand = null!;
+
+        _catalogItemRepository.Setup(s => s.GetByBrandAsync(
+            It.Is<string>(i => i == testedBrand)))
+            .ReturnsAsync((List<CatalogItemEntity>)null!);
+
+        // act
+        var actualResult = await _catalogService.GetItemsByBrandAsync(testedBrand);
+
+        // assert
+        actualResult.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetItemsByTypeAsync_Success()
+    {
+        // arrange
+        string testedType = "yukata";
+        var entities = new List<CatalogItemEntity>()
+        {
+            new CatalogItemEntity() { Name = ".NET Black & White Mug" }
+        };
+        var expectedResultDto = new List<CatalogItemDto>()
+        {
+            new CatalogItemDto() { Name = ".NET Black & White Mug" }
+        };
+
+        _catalogItemRepository.Setup(s => s.GetByTypeAsync(
+            It.Is<string>(i => i == testedType))).ReturnsAsync(entities);
+
+        _mapper.Setup(s => s.Map(
+            It.Is<List<CatalogItemEntity>>(i => i.Equals(entities)),
+            typeof(List<CatalogItemEntity>),
+            typeof(List<CatalogItemDto>))).Returns(expectedResultDto);
+
+        // act
+        var actualResult = await _catalogService.GetItemsByTypeAsync(testedType);
+
+        // assert
+        actualResult.Should().NotBeNull();
+        actualResult.Should().BeEquivalentTo(expectedResultDto);
+    }
+
+    [Fact]
+    public async Task GetItemsByTypeAsync_Failed()
+    {
+        // arrange
+        string testedType = null!;
+
+        _catalogItemRepository.Setup(s => s.GetByTypeAsync(
+            It.Is<string>(i => i == testedType)))
+            .ReturnsAsync((List<CatalogItemEntity>)null!);
+
+        // act
+        var actualResult = await _catalogService.GetItemsByTypeAsync(testedType);
+
+        // assert
+        actualResult.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetBrandsAsync_Success()
+    {
+        // arrange
+        var entities = new List<CatalogBrandEntity>()
+        {
+            new CatalogBrandEntity() { Id = 1, Brand = "Azure" }
+        };
+        var expectedResultDto = new List<CatalogBrandDto>()
+        {
+            new CatalogBrandDto() { Id = 1, Brand = "Azure" }
+        };
+
+        _catalogItemRepository.Setup(s => s.GetBrandsAsync()).ReturnsAsync(entities);
+
+        _mapper.Setup(s => s.Map(
+            It.Is<List<CatalogBrandEntity>>(i => i.Equals(entities)),
+            typeof(List<CatalogBrandEntity>),
+            typeof(List<CatalogBrandDto>))).Returns(expectedResultDto);
+
+        // actual
+        var actualResult = await _catalogService.GetBrandsAsync();
+
+        // assert
+        actualResult.Should().NotBeNull();
+        actualResult.Should().BeEquivalentTo(expectedResultDto);
+    }
+
+    [Fact]
+    public async Task GetBrandsAsync_Failed()
+    {
+        // arrange
+        _catalogItemRepository.Setup(s => s.GetBrandsAsync())
+            .ReturnsAsync((List<CatalogBrandEntity>)null!);
+
+        // act
+        var actualResult = await _catalogService.GetBrandsAsync();
+
+        // assert
+        actualResult.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetTypesAsync_Success()
+    {
+        // arrange
+        var entities = new List<CatalogTypeEntity>()
+        {
+            new CatalogTypeEntity() { Id = 13, Type = "yukata" }
+        };
+        var expectedResultDto = new List<CatalogTypeDto>()
+        {
+            new CatalogTypeDto() { Id = 13, Type = "yukata" }
+        };
+
+        _catalogItemRepository.Setup(s => s.GetTypesAsync()).ReturnsAsync(entities);
+
+        _mapper.Setup(s => s.Map(
+            It.Is<List<CatalogTypeEntity>>(i => i.Equals(entities)),
+            typeof(List<CatalogTypeEntity>),
+            typeof(List<CatalogTypeDto>))).Returns(expectedResultDto);
+
+        // act
+        var actualResult = await _catalogService.GetTypesAsync();
+
+        // assert
+        actualResult.Should().NotBeNull();
+        actualResult.Should().BeEquivalentTo(expectedResultDto);
+    }
+
+    [Fact]
+    public async Task GetTypesAsync_Failed()
+    {
+        // arrange
+        _catalogItemRepository.Setup(s => s.GetTypesAsync())
+            .ReturnsAsync((List<CatalogTypeEntity>)null!);
+
+        // act
+        var actualResult = await _catalogService.GetTypesAsync();
+
+        // assert
+        actualResult.Should().BeNull();
     }
 }

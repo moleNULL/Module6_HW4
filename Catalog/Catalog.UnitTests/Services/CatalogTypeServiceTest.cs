@@ -19,7 +19,8 @@ namespace Catalog.UnitTests.Services
             _logger = new Mock<ILogger<CatalogService>>();
 
             var dbContextTransaction = new Mock<IDbContextTransaction>();
-            _dbContextWrapper.Setup(s => s.BeginTransactionAsync(CancellationToken.None)).ReturnsAsync(dbContextTransaction.Object);
+            _dbContextWrapper.Setup(s => s.BeginTransactionAsync(CancellationToken.None))
+                .ReturnsAsync(dbContextTransaction.Object);
 
             _catalogTypeService = new CatalogTypeService(_dbContextWrapper.Object, _logger.Object, _catalogTypeRepository.Object);
         }
@@ -96,7 +97,8 @@ namespace Catalog.UnitTests.Services
             const string testedType = "cheongsam";
             EntityModifyState expectedResult = EntityModifyState.Updated;
 
-            _catalogTypeRepository.Setup(s => s.UpdateAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s => s.UpdateAsync(
+                It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.UpdateAsync(testedId, testedType);
@@ -113,7 +115,8 @@ namespace Catalog.UnitTests.Services
             const string testedType = "cheongsam";
             EntityModifyState expectedResult = EntityModifyState.NotFound;
 
-            _catalogTypeRepository.Setup(s => s.UpdateAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s => s.UpdateAsync(
+                It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.UpdateAsync(testedId, testedType);

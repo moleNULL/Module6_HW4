@@ -1,4 +1,3 @@
-using AutoMapper;
 using Infrastructure.Services.Implementations;
 using Infrastructure.Services.Interfaces;
 using WebAPI_UnitTests.Configurations;
