@@ -1,4 +1,3 @@
-using System.Threading;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Repositories.Interfaces;
@@ -107,7 +106,7 @@ public class CatalogItemServiceTest
         EntityModifyState expectedResult = EntityModifyState.NotFound;
 
         _catalogItemRepository.Setup(s => s.RemoveAsync(
-            It.IsAny<int>())).ReturnsAsync(expectedResult);
+            It.Is<int>(i => i == testedId))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogService.RemoveAsync(testedId);
@@ -123,7 +122,7 @@ public class CatalogItemServiceTest
         EntityModifyState expectedResult = EntityModifyState.Updated;
 
         _catalogItemRepository.Setup(s => s.UpdateAsync(
-            It.IsAny<int>(),
+            It.Is<int>(i => i == _testItem.Id),
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<decimal>(),
@@ -147,7 +146,7 @@ public class CatalogItemServiceTest
         EntityModifyState expectedResult = EntityModifyState.NotFound;
 
         _catalogItemRepository.Setup(s => s.UpdateAsync(
-            It.IsAny<int>(),
+            It.Is<int>(i => i == testedId),
             It.IsAny<string>(),
             It.IsAny<string>(),
             It.IsAny<decimal>(),

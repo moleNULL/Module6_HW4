@@ -1,4 +1,3 @@
-using AutoMapper;
 using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Models.Dtos;
 

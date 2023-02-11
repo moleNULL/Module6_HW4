@@ -29,10 +29,12 @@ namespace Catalog.UnitTests.Services
         public async Task AddAsync_Success()
         {
             // arrange
-            const string? testedType = "kimono";
+            string testedType = "kimono";
             int? expectedResult = 1;
 
-            _catalogTypeRepository.Setup(s => s.AddAsync(It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s => s.AddAsync(
+                It.Is<string>(i => i == testedType)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.AddAsync(testedType);
@@ -45,10 +47,12 @@ namespace Catalog.UnitTests.Services
         public async Task AddAsync_Failed()
         {
             // arrange
-            const string? testedType = null;
+            string testedType = null!;
             int? expectedResult = null;
 
-            _catalogTypeRepository.Setup(s => s.AddAsync(It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s =>
+                s.AddAsync(It.Is<string>(i => i == testedType)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.AddAsync(testedType!);
@@ -61,10 +65,12 @@ namespace Catalog.UnitTests.Services
         public async Task RemoveAsync_Success()
         {
             // arrange
-            const int testedId = 5;
+            int testedId = 5;
             EntityModifyState expectedResult = EntityModifyState.Deleted;
 
-            _catalogTypeRepository.Setup(s => s.RemoveAsync(It.IsAny<int>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s =>
+                s.RemoveAsync(It.Is<int>(i => i == testedId)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.RemoveAsync(testedId);
@@ -77,10 +83,12 @@ namespace Catalog.UnitTests.Services
         public async Task RemoveAsync_Failed()
         {
             // arrange
-            const int testedId = -4;
+            int testedId = -4;
             EntityModifyState expectedResult = EntityModifyState.NotFound;
 
-            _catalogTypeRepository.Setup(s => s.RemoveAsync(It.IsAny<int>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s =>
+                s.RemoveAsync(It.Is<int>(i => i == testedId)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.RemoveAsync(testedId);
@@ -93,12 +101,15 @@ namespace Catalog.UnitTests.Services
         public async Task UpdateAsync_Success()
         {
             // arrange
-            const int testedId = 13;
-            const string testedType = "cheongsam";
+            int testedId = 13;
+            string testedType = "cheongsam";
             EntityModifyState expectedResult = EntityModifyState.Updated;
 
-            _catalogTypeRepository.Setup(s => s.UpdateAsync(
-                It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s =>
+                s.UpdateAsync(
+                    It.Is<int>(i => i == testedId),
+                    It.Is<string>(i => i == testedType)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.UpdateAsync(testedId, testedType);
@@ -111,12 +122,15 @@ namespace Catalog.UnitTests.Services
         public async Task UpdateAsync_Failed()
         {
             // arrange
-            const int testedId = -4;
-            const string testedType = "cheongsam";
+            int testedId = -4;
+            string testedType = "cheongsam";
             EntityModifyState expectedResult = EntityModifyState.NotFound;
 
-            _catalogTypeRepository.Setup(s => s.UpdateAsync(
-                It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(expectedResult);
+            _catalogTypeRepository.Setup(s =>
+                s.UpdateAsync(
+                    It.Is<int>(i => i == testedId),
+                    It.Is<string>(i => i == testedType)))
+                .ReturnsAsync(expectedResult);
 
             // act
             var actualResult = await _catalogTypeService.UpdateAsync(testedId, testedType);

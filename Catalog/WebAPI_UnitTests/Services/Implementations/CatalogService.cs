@@ -1,6 +1,5 @@
 using Infrastructure.Services.Implementations;
 using Infrastructure.Services.Interfaces;
-using WebAPI_UnitTests.Configurations;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Data.Entities;
 using WebAPI_UnitTests.Models.Dtos;

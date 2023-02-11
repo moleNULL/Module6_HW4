@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Data.Entities;
 

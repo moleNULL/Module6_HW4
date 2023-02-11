@@ -1,7 +1,4 @@
-﻿using AutoMapper.Configuration.Conventions;
-using Moq;
-using WebAPI_UnitTests.Data;
-using WebAPI_UnitTests.Repositories.Implementations;
+﻿using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Repositories.Interfaces;
 using WebAPI_UnitTests.Services.Implementations;
 using WebAPI_UnitTests.Services.Interfaces;
@@ -36,7 +33,7 @@ public class CatalogBrandServiceTest
         int expectedResult = 1;
 
         _catalogBrandRepository.Setup(s => s.AddAsync(
-            It.IsAny<string>())).ReturnsAsync(expectedResult);
+            It.Is<string>(i => i == testedBrand))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.AddAsync(testedBrand);
@@ -49,11 +46,11 @@ public class CatalogBrandServiceTest
     public async Task AddAsync_Failed()
     {
         // arrange
-        string testedBrand = "MAUI";
+        string testedBrand = "Ruby-on-Rails";
         int? expectedResult = null;
 
         _catalogBrandRepository.Setup(s => s.AddAsync(
-            It.IsAny<string>())).ReturnsAsync(expectedResult);
+            It.Is<string>(i => i == testedBrand))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.AddAsync(testedBrand);
@@ -70,7 +67,7 @@ public class CatalogBrandServiceTest
         EntityModifyState expectedResult = EntityModifyState.Deleted;
 
         _catalogBrandRepository.Setup(s => s.RemoveAsync(
-            It.IsAny<int>())).ReturnsAsync(expectedResult);
+            It.Is<int>(i => i == testedId))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.RemoveAsync(testedId);
@@ -87,7 +84,7 @@ public class CatalogBrandServiceTest
         EntityModifyState expectedResult = EntityModifyState.NotFound;
 
         _catalogBrandRepository.Setup(s => s.RemoveAsync(
-            It.IsAny<int>())).ReturnsAsync(expectedResult);
+            It.Is<int>(i => i == testedId))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.RemoveAsync(testedId);
@@ -105,8 +102,8 @@ public class CatalogBrandServiceTest
         EntityModifyState expectedResult = EntityModifyState.Updated;
 
         _catalogBrandRepository.Setup(s => s.UpdateAsync(
-            It.IsAny<int>(),
-            It.IsAny<string>())).ReturnsAsync(expectedResult);
+            It.Is<int>(i => i == testedId),
+            It.Is<string>(i => i == testedBrand))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.UpdateAsync(testedId, testedBrand);
@@ -124,8 +121,8 @@ public class CatalogBrandServiceTest
         EntityModifyState expectedResult = EntityModifyState.NotFound;
 
         _catalogBrandRepository.Setup(s => s.UpdateAsync(
-            It.IsAny<int>(),
-            It.IsAny<string>())).ReturnsAsync(expectedResult);
+            It.Is<int>(i => i == testedId),
+            It.Is<string>(i => i == testedBrand))).ReturnsAsync(expectedResult);
 
         // act
         var actualResult = await _catalogBrandService.UpdateAsync(testedId, testedBrand);

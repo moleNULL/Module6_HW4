@@ -1,4 +1,3 @@
-using System.Threading;
 using Infrastructure.UnitTests.Mocks;
 
 namespace Infrastructure.UnitTests.Services;

@@ -1,6 +1,3 @@
-using WebAPI_UnitTests.Models.Dtos;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebAPI_UnitTests.Data.Entities;
 
 namespace WebAPI_UnitTests.Data.EntityConfigurations;

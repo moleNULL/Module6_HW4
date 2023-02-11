@@ -1,3 +1,14 @@
+/*
+                                                   Задача
+                        Написати Unit тести до методів сервісів з домашки Module6_HW3:
+
+    ● CatalogBrandService
+    ● CatalogItemService
+    ● CatalogService
+    ● CatalogTypeService
+
+*/
+
 using Infrastructure.Services.Implementations;
 using WebAPI_UnitTests.Configurations;
 using WebAPI_UnitTests.Data;

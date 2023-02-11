@@ -1,6 +1,3 @@
-using System.Net;
-using Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Models.Requests.BrandRequests;
 using WebAPI_UnitTests.Models.Response.BrandResponses;

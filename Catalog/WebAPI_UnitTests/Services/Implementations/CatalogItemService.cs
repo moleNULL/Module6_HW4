@@ -1,5 +1,3 @@
-using WebAPI_UnitTests.Repositories;
-using Microsoft.EntityFrameworkCore;
 using WebAPI_UnitTests.Data;
 using WebAPI_UnitTests.Repositories.Interfaces;
 using WebAPI_UnitTests.Services.Interfaces;
